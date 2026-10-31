@@ -232,6 +232,12 @@ listen {
 
 ipaddr =*
 
+#  Hardening: suppress duplicate/retransmitted Access-Requests so the same
+#  login is not processed (and logged to radpostauth) twice. A duplicate
+#  arriving within this window is answered from the cached reply instead of
+#  being reprocessed.
+ cleanup_delay = 5
+
 # Port on which to listen
 
 # Allowed values are
@@ -346,6 +352,12 @@ listen {
  port = 0
  type = acct
 
+#  Hardening: suppress duplicate/retransmitted Accounting-Requests so the same
+#  session is not written to radacct twice. A duplicate arriving within this
+#  window is answered from the cached reply instead of being reprocessed.
+#  Works with acct_unique (preacct) to stop duplicate radacct rows.
+ cleanup_delay = 5
+
 # interface = eth0
 
 # clients = per_socket_clients
@@ -416,6 +428,9 @@ listen {
  ipv6addr = :: # any.  ::1 == localhost
  port = 0
 
+#  Hardening: suppress duplicate/retransmitted Access-Requests (see IPv4 auth).
+ cleanup_delay = 5
+
 # interface = eth0
 
 # clients = per_socket_clients
@@ -431,6 +446,12 @@ listen {
  ipv6addr = ::
  port = 0
  type = acct
+
+#  Hardening: suppress duplicate/retransmitted Accounting-Requests so the same
+#  session is not written to radacct twice. A duplicate arriving within this
+#  window is answered from the cached reply instead of being reprocessed.
+#  Works with acct_unique (preacct) to stop duplicate radacct rows.
+ cleanup_delay = 5
 
 # interface = eth0
 
